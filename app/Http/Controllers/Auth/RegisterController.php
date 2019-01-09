@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Level;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,13 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+
+        $level = Level::get();
+        return view('auth.register', compact('level'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -48,10 +56,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // $pick_level = $data['level'];
+        // if($pick_level == 1){
+        //     $str = "['required', 'unique:users']";
+        // }
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            // 'id_level' => ['required'],
+            
         ]);
     }
 
@@ -65,8 +80,9 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'id_level' => 2
         ]);
     }
 }

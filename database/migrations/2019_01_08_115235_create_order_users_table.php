@@ -15,10 +15,11 @@ class CreateOrderUsersTable extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('id_order')->unique();
             $table->integer('no_meja');
             $table->integer('id_user');
             $table->text('description');
-            // $table  status order??
+            $table->enum('status_order', [0,1]);
             $table->timestamps();
         });
     }

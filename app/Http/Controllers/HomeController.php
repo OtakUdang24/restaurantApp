@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+        /**
+     * Show the admin page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function waiter()
+    {
+        return view('waiter.main');
+    }
 }

@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth', 'isWaiter'])->group(function ()
+{
+    Route::get('/home', 'ViewWaiterController@index');
+    Route::get('/registrasi', 'ViewWaiterController@registrasi')->name('registrasi');
+    Route::get('/order', 'ViewWaiterController@order')->name('order');
+    Route::resource('inputOrder', 'OrderController');
+});
