@@ -38,11 +38,11 @@
                                 @endif
                             </div>
                         </div>
-   
+
                         <!-- Select Basic -->
                         <!-- <div class="form-group row">
                             <label for="id_level" class="col-md-4 col-form-label text-md-right">{{ __('Level') }}</label>
-                            
+
                             <div class="col-md-6">
                                 <select id="id_level" name="id_level" class="form-control">
                                 <option></option>

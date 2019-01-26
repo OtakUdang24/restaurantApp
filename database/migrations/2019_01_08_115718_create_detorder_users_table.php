@@ -16,8 +16,8 @@ class CreateDetorderUsersTable extends Migration
         Schema::create('detail_order', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_order');
-            $table->integer('id_menu');
-            $table->text('description');
+            $table->integer('id_masakan');
+            $table->text('keterangan');
             // $table-> status detail order??
             $table->timestamps();
         });

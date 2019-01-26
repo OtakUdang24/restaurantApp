@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -34,5 +35,15 @@ class HomeController extends Controller
     public function waiter()
     {
         return view('waiter.main');
+    }
+
+        /**
+     * Show the admin page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function admin()
+    {
+        return view('admin.main');
     }
 }

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Meja;
+use App\DetOrder;
+use App\Masakan;
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -15,6 +19,20 @@ class OrderController extends Controller
     public function index()
     {
         //
+        $data = Meja::where('stts', '0')->get();
+        $record = Order::latest()->first();
+        $menu = Masakan::where('status', '1')->get();
+        $pg = "order";
+        $a = $record ? (int) DetOrder::where('id_order', $record->id_order)->count() : 'data kosong';
+
+        if ($a === "data kosong") {
+          $kode = date('Y')."-0001";
+          return view('other.order')->with('noMeja', $data)->with('numb', $kode)->with('menu', $menu);
+        }else {
+          $expNum = explode('-', $record->id_order);
+          $kode = date('Y') .'-'. sprintf("%04s", $expNum[1]+1);
+          return view('other.order')->with('noMeja', $data)->with('numb', $kode)->with('menu', $menu);
+        }
     }
 
     /**
@@ -25,7 +43,7 @@ class OrderController extends Controller
     public function create()
     {
         //
-        
+
     }
 
     /**
@@ -37,8 +55,34 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         //
-        Order::create($request->all());
-        return redirect()->back();
+        // dd($request);
+        $menu = Masakan::where('status', '1')->get();
+        $request->validate([
+          'id_order' => 'required|unique:orders|max:10',
+          'no_meja' => 'required',
+        ]);
+        $array = $request->input('id_menu');
+
+        $insertOrder = Order::create($request->all());
+        if($insertOrder){
+          Meja::where('noMeja', $request->input('no_meja'))
+          ->update(['stts' => '1']);
+          foreach ($array as $key => $value) {
+
+            DetOrder::insert(
+              array(
+                'id_order' => $request->id_order,
+                'id_masakan' => $value,
+                'keterangan' => 'belum ada',
+                'jumlah'  => 0
+               )
+             );
+          }
+          $det = DetOrder::select('detail_order.id_order', 'makanan.nama_masakan', 'detail_order.id_masakan')->
+                join('makanan', 'detail_order.id_masakan', '=', 'makanan.id')->
+          where('id_order', $request->id_order)->get();
+            return view('other.detOrder')->with('success', 'Berhasil')->with('kode' ,$request->id_order)->with('det', $det);
+        }
     }
 
     /**

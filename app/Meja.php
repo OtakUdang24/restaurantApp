@@ -8,5 +8,6 @@ class Meja extends Model
 {
     //
     protected $table = 'meja';
-    protected $fillable = ['noMeja'];
+
+    protected $fillable = ['noMeja', 'stts'];
 }

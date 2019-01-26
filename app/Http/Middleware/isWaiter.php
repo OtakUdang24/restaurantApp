@@ -16,7 +16,7 @@ class isWaiter
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->id_level == 1){
+        if(Auth::user()->id_level == 2){
             return $next($request);
         }
         return redirect('/home');

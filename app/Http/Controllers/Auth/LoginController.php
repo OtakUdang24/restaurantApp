@@ -58,7 +58,7 @@ class LoginController extends Controller
     //     $credentials['active'] = 1;
     //     return $credentials;
     // }
-    
+
         /**
      * Get the failed login response instance.
      *
@@ -73,7 +73,7 @@ class LoginController extends Controller
         // Check if user was successfully loaded, that the password matches
         // and active is not 1. If so, override the default error message.
 
-        if ($user != 1) {
+        if (!$user) {
             $errors = [$this->username() => 'Username tidak ada'];
         }else{
             if (\Hash::check($request->password, $user->password) != 1) {
@@ -88,5 +88,5 @@ class LoginController extends Controller
             ->withErrors($errors);
     }
 
-    
+
 }

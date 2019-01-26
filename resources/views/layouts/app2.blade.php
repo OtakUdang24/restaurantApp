@@ -325,18 +325,35 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="index.jsp">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
-                        </a>
+
+                    <li class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
+                      <a href="">
+                        <i class="material-icons">home</i>
+                        <span>Home</span>
+                      </a>
                     </li>
-                    <li>
-                        <a href="{{route('order')}}">
-                            <i class="material-icons">text_fields</i>
+                    <li class="{{ Route::currentRouteName() == 'order.index' || Route::currentRouteName() == 'corder.index' ? 'active' : '' }}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assignment</i>
                             <span>Order</span>
                         </a>
+                        <ul class="ml-menu">
+                            <li class="{{ Route::currentRouteName() == 'order.index' ? 'active' : '' }}">
+                                <a href="{{route('order.index')}}">Entry Order</a>
+                            </li>
+                            <li class="{{ Route::currentRouteName() == 'corder.index' ? 'active' : '' }}">
+                                <a href="{{route('corder.index')}}">List Of Orders</a>
+                            </li>
+
+                        </ul>
+                        <ul class="ml-menu">
+                            <li class="{{ Route::currentRouteName() == 'order.index' ? 'active' : '' }}">
+                                <a href="{{route('order.index')}}">Change Order</a>
+                            </li>
+                        </ul>
                     </li>
+
+
                     <li>
                         <a href="../media/admin/pages/helper-classes.html">
                             <i class="material-icons">layers</i>
@@ -825,8 +842,8 @@
         @yield('content')
         </div>
     </section>
-    
-    
+
+
 
         <!-- Jquery Core Js -->
         <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
@@ -869,6 +886,24 @@
 
         <!-- Demo Js -->
         <script src="{{asset('js/demo.js')}}"></script>
+        <script type="text/javascript">
+        // Material Select Initialization
+$(document).ready(function() {
+$('.mdb-select').materialSelect();
+});
+        </script>
+
+        @if ($message = Session::get('success'))
+
+        <div class="alert bg-green alert-dismissible animated fadeInDown" role="alert" style="display: inline-block; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right:10px;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+            {{$message}}
+        </div>
+        @endif
+
+
+        <!-- <div class="alert alert-info">{{ Session::get('message') }}</div> -->
 
 
 </body>
