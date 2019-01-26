@@ -56,3 +56,54 @@ END
 
       <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
   </form>
+
+  <!-- detoreder1 -->
+  <div class="modal fade" id="editModal{{$value->id}}" tabindex="-1" role="dialog"
+
+    >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="editModal{{$value->id}}">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="form_validation" action="{{route('corder.update',$value->id )}}">
+          {{ csrf_field() }}
+          {{ method_field('PUT') }}
+          <div class="row clearfix">
+                                          <div class="col-sm-12">
+                                            <div class="form-group form-float">
+                                              <div class="form-line">
+                                                <input id="id_order" readonly value="{{$value->id_order}}" required type="text" name="id_order"  class="form-control">
+                                                <label class="form-label">Id Order</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-12">
+                                            <div class="form-group form-float">
+                                              <div class="form-line">
+                                                <select autofocus id="no_meja" required class="selectpicker form-control show-tick" data-live-search="true" name="no_meja">
+                                                  <option value="">--Status--</option>
+
+                                                  @foreach ($meja as $key)
+                                                  <option value="{{$key->noMeja}}" {{$key->noMeja == $value->noMeja ? 'selected' : ''}} >{{$key->noMeja}}</option>
+                                                  @endforeach
+                                                </select>
+                                              </div>
+                                              @if ($errors->has('harga'))
+                                              <label  id="name-error" class="error" for="harga">{{$errors->first('harga')}}</label>
+                                              @endif
+                                            </div>
+                                          </div>
+
+                                      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-link waves-effect">SAVE CHANGES</button>
+          <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

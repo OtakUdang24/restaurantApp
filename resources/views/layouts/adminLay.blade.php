@@ -365,7 +365,7 @@
                         <span>Users</span>
                       </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == 'order.index' || Route::currentRouteName() == 'corder.index' ? 'active' : '' }}">
+                    <li class="{{ Route::currentRouteName() == 'order.index' || Route::currentRouteName() == 'corder.index' || Route::currentRouteName() == 'detOrder.index' ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
                             <span>Order</span>

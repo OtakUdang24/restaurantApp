@@ -56,6 +56,7 @@ class OrderController extends Controller
     {
         //
         // dd($request);
+        // dd("pekok");
         $menu = Masakan::where('status', '1')->get();
         $request->validate([
           'id_order' => 'required|unique:orders|max:10',
